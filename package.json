@@ -1,0 +1,48 @@
+{
+  "name": "@towercg/client",
+  "version": "0.0.0",
+  "main": "dist",
+  "license": "AGPL-3.0",
+  "scripts": {
+    "build": "npx babel src -d dist",
+    "watch": "yarn build --watch",
+    "test": "npx jest"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.0.0",
+    "babel-core": "^6.26.0",
+    "babel-jest": "^21.0.2",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-preset-env": "^1.6.0",
+    "jest": "^21.1.0"
+  },
+  "dependencies": {
+    "auto-bind": "^1.1.0",
+    "eventemitter2": "^4.1.2",
+    "jsondiffpatch": "^0.2.4",
+    "socket.io": "^2.0.3",
+    "socketio-wildcard": "^2.0.0"
+  },
+  "babel": {
+    "presets": [
+      "env"
+    ],
+    "plugins": [
+      [
+        "transform-class-properties",
+        {
+          "spec": true
+        }
+      ]
+    ]
+  },
+  "jest": {
+    "globals": {
+      "__DEV__": true,
+      "__TEST__": true
+    },
+    "testPathIgnorePatterns": [
+      "<rootDir>/src"
+    ]
+  }
+}
