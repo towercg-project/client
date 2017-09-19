@@ -18,6 +18,7 @@ export class Client {
     this.logger.debug("Constructing client.");
 
     this._url = url;
+    this._stateIteration = 0;
     this._connected = false;
     this.eventBus = new EventEmitter2();
   }
@@ -26,6 +27,7 @@ export class Client {
   get socket() { return this._io; }
   get url() { return this._url; }
   get state() { return this._state; }
+  get stateIteration() { return this._stateIteration; }
 
   connect() {
     this.logger.info(`Connecting to server: ${this._url}`);
@@ -95,6 +97,7 @@ export class Client {
       const oldState = this._state;
       this.options.logStateChanges && this.logger.info("Getting full state from server.");
       this._state = newState;
+      this._stateIteration += 1;
 
       this.eventBus.emit("towercg-client.state", { newState });
       if (oldState) {
@@ -109,6 +112,7 @@ export class Client {
       jdp.patch(newState, diff);
 
       this._state = newState;
+      this._stateIteration += 1;
       this.eventBus.emit("towercg-client.stateChanged", { oldState, newState, diff });
     });
 
